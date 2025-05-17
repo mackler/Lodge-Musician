@@ -1,7 +1,34 @@
-use eframe::egui;
-use rodio::{Decoder, OutputStream, OutputStreamHandle, Sink};
 use std::fs::File;
 use std::io::BufReader;
+use std::sync::{Arc, Mutex};
+
+use rodio::{Decoder, OutputStream, OutputStreamHandle, Sink};
+
+slint::slint! {
+    import { VerticalBox, Button } from "std-widgets.slint";
+
+    export component MainWindow inherits Window {
+        width: 300px;
+        height: 150px;
+
+        callback toggle_audio1();
+        callback toggle_audio2();
+
+        VerticalBox {
+            spacing: 20px;
+            alignment: center;
+
+            Button {
+                text: "Toggle Audio 1";
+                clicked => { root.toggle_audio1(); }
+            }
+            Button {
+                text: "Toggle Audio 2";
+                clicked => { root.toggle_audio2(); }
+            }
+        }
+    }
+}
 
 struct AudioToggle {
     sink: Option<Sink>,
@@ -11,7 +38,7 @@ struct AudioToggle {
 
 impl AudioToggle {
     fn new(file: &'static str, stream_handle: OutputStreamHandle) -> Self {
-        AudioToggle {
+        Self {
             sink: None,
             file,
             stream_handle,
@@ -26,7 +53,7 @@ impl AudioToggle {
                 return;
             }
         }
-        let file = File::open(self.file).expect("Failed to open file");
+        let file = File::open(self.file).expect("Failed to open audio file");
         let source = Decoder::new(BufReader::new(file)).expect("Failed to decode audio");
         let sink = Sink::try_new(&self.stream_handle).expect("Failed to create sink");
         sink.append(source);
@@ -34,40 +61,26 @@ impl AudioToggle {
     }
 }
 
-struct MyApp {
-    audio1: AudioToggle,
-    audio2: AudioToggle,
-}
+fn main() -> Result<(), slint::PlatformError> {
+    let (_stream, stream_handle) = OutputStream::try_default().expect("No audio output device");
 
-impl MyApp {
-    fn new(stream_handle: OutputStreamHandle) -> Self {
-        MyApp {
-            audio1: AudioToggle::new("/home/mackler/Music/artists/Aerosmith - Complete Discography/1973 - Aerosmith/01. Make It.mp3", stream_handle.clone()),
-            audio2: AudioToggle::new("/home/mackler/Music/masonic-music/files-for-work/more-outro.wav", stream_handle),
-        }
-    }
-}
+    let audio1 = Arc::new(Mutex::new(AudioToggle::new("/home/mackler/Music/masonic-music/files-for-work/more-outro.wav", stream_handle.clone())));
+    let audio2 = Arc::new(Mutex::new(AudioToggle::new("/home/mackler/Music/artists/Aerosmith - Complete Discography/1973 - Aerosmith/01. Make It.mp3", stream_handle)));
 
-impl eframe::App for MyApp {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        egui::CentralPanel::default().show(ctx, |ui| {
-            if ui.button("Toggle Audio 1").clicked() {
-                self.audio1.toggle();
-            }
-            if ui.button("Toggle Audio 2").clicked() {
-                self.audio2.toggle();
-            }
+    let main_window = MainWindow::new()?;
+
+    {
+        let audio1 = audio1.clone();
+        main_window.on_toggle_audio1(move || {
+            audio1.lock().unwrap().toggle();
         });
     }
-}
+    {
+        let audio2 = audio2.clone();
+        main_window.on_toggle_audio2(move || {
+            audio2.lock().unwrap().toggle();
+        });
+    }
 
-fn main() -> eframe::Result<()> {
-    let (_stream, stream_handle) = OutputStream::try_default().expect("No audio output device");
-    let app = MyApp::new(stream_handle);
-    let native_options = eframe::NativeOptions::default();
-    eframe::run_native(
-        "Audio Toggle Example",
-        native_options,
-        Box::new(|_cc| Box::new(app)),
-    )
+    main_window.run()
 }
