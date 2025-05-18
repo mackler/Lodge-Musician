@@ -3,19 +3,21 @@ use audio_files::*;
 use std::fs::File;
 use std::io::BufReader;
 use std::sync::{Arc, Mutex};
-
 use rodio::{Decoder, OutputStream, OutputStreamHandle, Sink};
+
+use std::env;
+use std::path::{Path, PathBuf};
 
 slint::include_modules!();
 
 struct AudioToggle {
     sink: Option<Sink>,
-    file: &'static str,
+    file: PathBuf,
     stream_handle: OutputStreamHandle,
 }
 
 impl AudioToggle {
-    fn new(file: &'static str, stream_handle: OutputStreamHandle) -> Self {
+    fn new(file: PathBuf, stream_handle: OutputStreamHandle) -> Self {
         Self {
             sink: None,
             file,
@@ -31,7 +33,8 @@ impl AudioToggle {
                 return;
             }
         }
-        let file = File::open(self.file).expect("Failed to open audio file");
+        println!("Trying to open file: {}", self.file.display());
+        let file = File::open(&self.file).expect("Failed to open audio file");
         let source = Decoder::new(BufReader::new(file)).expect("Failed to decode audio");
         let sink = Sink::try_new(&self.stream_handle).expect("Failed to create sink");
         sink.append(source);
@@ -39,15 +42,22 @@ impl AudioToggle {
     }
 }
 
+fn build_path(dir: &Path, file: &str) -> PathBuf {
+    dir.join(file)
+}
+
 fn main() -> Result<(), slint::PlatformError> {
+    let dir = env::args().nth(1).expect("Usage: program <sound_directory>");
+    let dir_path = Path::new(&dir);
+
     let (_stream, stream_handle) = OutputStream::try_default().expect("No audio output device");
 
-    let opening_procession = Arc::new(Mutex::new(AudioToggle::new(OPENING_PROCESSION, stream_handle.clone())));
-    let open_great_lights = Arc::new(Mutex::new(AudioToggle::new(OPEN_GREAT_LIGHTS, stream_handle.clone())));
-    let rimshot1 = Arc::new(Mutex::new(AudioToggle::new(RIMSHOT1, stream_handle.clone())));
-    let rimshot2 = Arc::new(Mutex::new(AudioToggle::new(RIMSHOT2, stream_handle.clone())));
-    let rimshot3 = Arc::new(Mutex::new(AudioToggle::new(RIMSHOT3, stream_handle.clone())));
-    let rimshot4 = Arc::new(Mutex::new(AudioToggle::new(RIMSHOT4, stream_handle.clone())));
+    let opening_procession = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, OPENING_PROCESSION), stream_handle.clone())));
+    let open_great_lights = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, OPEN_GREAT_LIGHTS), stream_handle.clone())));
+    let rimshot1 = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, RIMSHOT1), stream_handle.clone())));
+    let rimshot2 = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, RIMSHOT2), stream_handle.clone())));
+    let rimshot3 = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, RIMSHOT3), stream_handle.clone())));
+    let rimshot4 = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, RIMSHOT4), stream_handle.clone())));
 
     let main_window = MainWindow::new()?;
 
