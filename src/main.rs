@@ -1,3 +1,5 @@
+mod audio_files;
+use audio_files::*;
 use std::fs::File;
 use std::io::BufReader;
 use std::sync::{Arc, Mutex};
@@ -40,8 +42,8 @@ impl AudioToggle {
 fn main() -> Result<(), slint::PlatformError> {
     let (_stream, stream_handle) = OutputStream::try_default().expect("No audio output device");
 
-    let audio1 = Arc::new(Mutex::new(AudioToggle::new("/home/mackler/Music/masonic-music/files-for-work/more-outro.wav", stream_handle.clone())));
-    let audio2 = Arc::new(Mutex::new(AudioToggle::new("/home/mackler/Music/artists/Aerosmith - Complete Discography/1973 - Aerosmith/01. Make It.mp3", stream_handle)));
+    let audio1 = Arc::new(Mutex::new(AudioToggle::new(TRACK1, stream_handle.clone())));
+    let audio2 = Arc::new(Mutex::new(AudioToggle::new(EFFECT1, stream_handle)));
 
     let main_window = MainWindow::new()?;
 
