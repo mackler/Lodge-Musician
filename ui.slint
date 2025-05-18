@@ -1,23 +1,57 @@
-import { VerticalBox, Button } from "std-widgets.slint";
+import { VerticalBox, HorizontalBox, Button, GroupBox } from "std-widgets.slint";
 
 export component MainWindow inherits Window {
     width: 1920px;
     height: 1080px;
 
+    // Callbacks for each button
     callback toggle_audio1();
+    callback group1_button2();
+    callback group1_button3();
     callback toggle_audio2();
+    callback group2_button2();
+    callback group2_button3();
 
-    VerticalLayout {
-        spacing: 20px;
-        alignment: center;
+    HorizontalBox {
+        spacing: 24px;
+        padding: 16px;
 
-        Button {
-            text: "Toggle Audio 1";
-            clicked => { root.toggle_audio1(); }
+        GroupBox {
+            title: "Group 1: Audio Tracks";
+            VerticalBox {
+                spacing: 8px;
+                Button {
+                    text: "Play Track 1";
+                    clicked => { root.toggle_audio1(); }
+                }
+                Button {
+                    text: "Play Track 2";
+                    clicked => { root.group1_button2(); }
+                }
+                Button {
+                    text: "Play Track 3";
+                    clicked => { root.group1_button3(); }
+                }
+            }
         }
-        Button {
-            text: "Toggle Audio 2";
-            clicked => { root.toggle_audio2(); }
+
+        GroupBox {
+            title: "Group 2: Sound Effects";
+            VerticalBox {
+                spacing: 8px;
+                Button {
+                    text: "Effect 1";
+                    clicked => { root.toggle_audio2(); }
+                }
+                Button {
+                    text: "Effect 2";
+                    clicked => { root.group2_button2(); }
+                }
+                Button {
+                    text: "Effect 3";
+                    clicked => { root.group2_button3(); }
+                }
+            }
         }
     }
 }
