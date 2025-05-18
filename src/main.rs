@@ -42,21 +42,21 @@ impl AudioToggle {
 fn main() -> Result<(), slint::PlatformError> {
     let (_stream, stream_handle) = OutputStream::try_default().expect("No audio output device");
 
-    let audio1 = Arc::new(Mutex::new(AudioToggle::new(TRACK1, stream_handle.clone())));
-    let audio2 = Arc::new(Mutex::new(AudioToggle::new(EFFECT1, stream_handle)));
+    let audio1 = Arc::new(Mutex::new(AudioToggle::new(OPENING_PROCESSION, stream_handle.clone())));
+    let rimshot1 = Arc::new(Mutex::new(AudioToggle::new(RIMSHOT1, stream_handle)));
 
     let main_window = MainWindow::new()?;
 
     {
         let audio1 = audio1.clone();
-        main_window.on_toggle_audio1(move || {
+        main_window.on_toggle_opening_procession(move || {
             audio1.lock().unwrap().toggle();
         });
     }
     {
-        let audio2 = audio2.clone();
-        main_window.on_toggle_audio2(move || {
-            audio2.lock().unwrap().toggle();
+        let rimshot1 = rimshot1.clone();
+        main_window.on_toggle_rimshot1(move || {
+            rimshot1.lock().unwrap().toggle();
         });
     }
 

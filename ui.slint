@@ -5,10 +5,10 @@ export component MainWindow inherits Window {
     height: 1080px;
 
     // Callbacks for each button
-    callback toggle_audio1();
+    callback toggle_opening_procession();
     callback group1_button2();
     callback group1_button3();
-    callback toggle_audio2();
+    callback toggle_rimshot1();
     callback group2_button2();
     callback group2_button3();
 
@@ -17,12 +17,12 @@ export component MainWindow inherits Window {
         padding: 16px;
 
         GroupBox {
-            title: "Group 1: Audio Tracks";
+            title: "Opening";
             VerticalBox {
                 spacing: 8px;
                 Button {
-                    text: "Play Track 1";
-                    clicked => { root.toggle_audio1(); }
+                    text: "Opening Procession";
+                    clicked => { root.toggle_opening_procession(); }
                 }
                 Button {
                     text: "Play Track 2";
@@ -36,12 +36,12 @@ export component MainWindow inherits Window {
         }
 
         GroupBox {
-            title: "Group 2: Sound Effects";
+            title: "Rimshots";
             VerticalBox {
                 spacing: 8px;
                 Button {
                     text: "Effect 1";
-                    clicked => { root.toggle_audio2(); }
+                    clicked => { root.toggle_rimshot1(); }
                 }
                 Button {
                     text: "Effect 2";
