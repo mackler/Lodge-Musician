@@ -1,0 +1,23 @@
+import { VerticalBox, Button } from "std-widgets.slint";
+
+export component MainWindow inherits Window {
+    width: 1920px;
+    height: 1080px;
+
+    callback toggle_audio1();
+    callback toggle_audio2();
+
+    VerticalLayout {
+        spacing: 20px;
+        alignment: center;
+
+        Button {
+            text: "Toggle Audio 1";
+            clicked => { root.toggle_audio1(); }
+        }
+        Button {
+            text: "Toggle Audio 2";
+            clicked => { root.toggle_audio2(); }
+        }
+    }
+}

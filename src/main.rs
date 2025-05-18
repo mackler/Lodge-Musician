@@ -4,31 +4,7 @@ use std::sync::{Arc, Mutex};
 
 use rodio::{Decoder, OutputStream, OutputStreamHandle, Sink};
 
-slint::slint! {
-    import { VerticalBox, Button } from "std-widgets.slint";
-
-    export component MainWindow inherits Window {
-        width: 300px;
-        height: 150px;
-
-        callback toggle_audio1();
-        callback toggle_audio2();
-
-        VerticalBox {
-            spacing: 20px;
-            alignment: center;
-
-            Button {
-                text: "Toggle Audio 1";
-                clicked => { root.toggle_audio1(); }
-            }
-            Button {
-                text: "Toggle Audio 2";
-                clicked => { root.toggle_audio2(); }
-            }
-        }
-    }
-}
+slint::include_modules!();
 
 struct AudioToggle {
     sink: Option<Sink>,
