@@ -6,11 +6,12 @@ export component MainWindow inherits Window {
 
     // Callbacks for each button
     callback toggle_opening_procession();
-    callback group1_button2();
+    callback toggle_open_great_lights();
     callback group1_button3();
     callback toggle_rimshot1();
-    callback group2_button2();
-    callback group2_button3();
+    callback toggle_rimshot2();
+    callback toggle_rimshot3();
+    callback toggle_rimshot4();
 
     HorizontalBox {
         spacing: 24px;
@@ -25,8 +26,8 @@ export component MainWindow inherits Window {
                     clicked => { root.toggle_opening_procession(); }
                 }
                 Button {
-                    text: "Play Track 2";
-                    clicked => { root.group1_button2(); }
+                    text: "Open Great Lights";
+                    clicked => { root.toggle_open_great_lights(); }
                 }
                 Button {
                     text: "Play Track 3";
@@ -40,16 +41,20 @@ export component MainWindow inherits Window {
             VerticalBox {
                 spacing: 8px;
                 Button {
-                    text: "Effect 1";
+                    text: "Rimshot 1";
                     clicked => { root.toggle_rimshot1(); }
                 }
                 Button {
-                    text: "Effect 2";
-                    clicked => { root.group2_button2(); }
+                    text: "Rimshot 2";
+                    clicked => { root.toggle_rimshot2(); }
                 }
                 Button {
-                    text: "Effect 3";
-                    clicked => { root.group2_button3(); }
+                    text: "Rimshot 3";
+                    clicked => { root.toggle_rimshot3(); }
+                }
+                Button {
+                    text: "Rimshot 4";
+                    clicked => { root.toggle_rimshot4(); }
                 }
             }
         }
