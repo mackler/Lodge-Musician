@@ -142,6 +142,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
     let opening_procession = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, OPENING_PROCESSION), stream_handle.clone())));
     let open_great_lights = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, OPEN_GREAT_LIGHTS), stream_handle.clone())));
+    let national_anthem = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, NATIONAL_ANTHEM), stream_handle.clone())));
     let rimshot1 = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, RIMSHOT1), stream_handle.clone())));
     let rimshot2 = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, RIMSHOT2), stream_handle.clone())));
     let rimshot3 = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, RIMSHOT3), stream_handle.clone())));
@@ -166,53 +167,11 @@ fn main() -> Result<(), slint::PlatformError> {
 
     connect_button!(opening_procession, MainWindow::set_opening_procession_playing, on_toggle_opening_procession);
     connect_button!(open_great_lights, MainWindow::set_open_great_lights_playing, on_toggle_open_great_lights);
+    connect_button!(national_anthem, MainWindow::set_national_anthem_playing, on_toggle_national_anthem);
     connect_button!(rimshot1, MainWindow::set_rimshot1_playing, on_toggle_rimshot1);
     connect_button!(rimshot2, MainWindow::set_rimshot2_playing, on_toggle_rimshot2);
     connect_button!(rimshot3, MainWindow::set_rimshot3_playing, on_toggle_rimshot3);
     connect_button!(rimshot4, MainWindow::set_rimshot4_playing, on_toggle_rimshot4);
-
-
-    // {
-    //     let opening_procession = opening_procession.clone();
-    //     let main_window_weak = main_window.as_weak();
-    //     main_window.on_toggle_opening_procession(move || {
-    //         let mut adio = opening_procession.lock().unwrap();
-    //         audio.toggle();
-    //         if let Some(main_window) = main_window_weak.upgrade() {
-    //             main_window.set_opening_procession_playing(audio.is_playing());
-    //         }
-    //     });
-    // }
-    // {
-    //     let open_great_lights = open_great_lights.clone();
-    //     main_window.on_toggle_open_great_lights(move || {
-    //         open_great_lights.lock().unwrap().toggle();
-    //     });
-    // }
-    // {
-    //     let rimshot1 = rimshot1.clone();
-    //     main_window.on_toggle_rimshot1(move || {
-    //         rimshot1.lock().unwrap().toggle();
-    //     });
-    // }
-    // {
-    //     let rimshot2 = rimshot2.clone();
-    //     main_window.on_toggle_rimshot2(move || {
-    //         rimshot2.lock().unwrap().toggle();
-    //     });
-    // }
-    // {
-    //     let rimshot3 = rimshot3.clone();
-    //     main_window.on_toggle_rimshot3(move || {
-    //         rimshot3.lock().unwrap().toggle();
-    //     });
-    // }
-    // {
-    //     let rimshot4 = rimshot4.clone();
-    //     main_window.on_toggle_rimshot4(move || {
-    //         rimshot4.lock().unwrap().toggle();
-    //     });
-    // }
 
     main_window.run()
 }

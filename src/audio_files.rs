@@ -1,5 +1,6 @@
 pub const OPENING_PROCESSION: &str = "opening-procession.wav";
 pub const OPEN_GREAT_LIGHTS: &str = "open-great-lights.wav";
+pub const NATIONAL_ANTHEM: &str = "slovak-national-anthem.wav";
 pub const TRACK2: &str = "audio2.mp3";
 pub const TRACK3: &str = "audio3.mp3";
 pub const RIMSHOT1: &str = "more-outro.wav";
