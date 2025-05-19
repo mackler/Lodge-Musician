@@ -165,7 +165,11 @@ fn main() -> Result<(), slint::PlatformError> {
     }
 
     connect_button!(opening_procession, MainWindow::set_opening_procession_playing, on_toggle_opening_procession);
+    connect_button!(open_great_lights, MainWindow::set_open_great_lights_playing, on_toggle_open_great_lights);
     connect_button!(rimshot1, MainWindow::set_rimshot1_playing, on_toggle_rimshot1);
+    connect_button!(rimshot2, MainWindow::set_rimshot2_playing, on_toggle_rimshot2);
+    connect_button!(rimshot3, MainWindow::set_rimshot3_playing, on_toggle_rimshot3);
+    connect_button!(rimshot4, MainWindow::set_rimshot4_playing, on_toggle_rimshot4);
 
 
     // {

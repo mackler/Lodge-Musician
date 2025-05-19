@@ -34,7 +34,7 @@ export component MainWindow inherits Window {
                     clicked => { root.toggle_opening_procession(); }
                 }
                 Button {
-                    text: "Open Great Lights";
+                    text: open_great_lights_playing ? "◼ Open Great Lights" : "▶ Open Great Lights";
                     clicked => { root.toggle_open_great_lights(); }
                 }
                 Button {
@@ -53,15 +53,15 @@ export component MainWindow inherits Window {
                     clicked => { root.toggle_rimshot1(); }
                 }
                 Button {
-                    text: "Rimshot 2";
+                    text: rimshot2_playing ? "◼ Rimshot 2" : "▶ Rimshot 2";
                     clicked => { root.toggle_rimshot2(); }
                 }
                 Button {
-                    text: "Rimshot 3";
+                    text: rimshot3_playing ? "◼ Rimshot 3" : "▶ Rimshot 3";
                     clicked => { root.toggle_rimshot3(); }
                 }
                 Button {
-                    text: "Rimshot 4";
+                    text: rimshot4_playing ? "◼ Rimshot 4" : "▶ Rimshot 4";
                     clicked => { root.toggle_rimshot4(); }
                 }
             }
