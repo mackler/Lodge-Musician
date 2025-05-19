@@ -4,6 +4,14 @@ export component MainWindow inherits Window {
     width: 1920px;
     height: 1080px;
 
+    // Properties so user can see which track is playing
+    in-out property<bool> opening_procession_playing;
+    in-out property<bool> open_great_lights_playing;
+    in-out property<bool> rimshot1_playing;
+    in-out property<bool> rimshot2_playing;
+    in-out property<bool> rimshot3_playing;
+    in-out property<bool> rimshot4_playing;
+
     // Callbacks for each button
     callback toggle_opening_procession();
     callback toggle_open_great_lights();
@@ -22,7 +30,7 @@ export component MainWindow inherits Window {
             VerticalBox {
                 spacing: 8px;
                 Button {
-                    text: "Opening Procession";
+                    text: opening_procession_playing ? "◼ Opening Procession" : "▶ Opening Procession";
                     clicked => { root.toggle_opening_procession(); }
                 }
                 Button {
@@ -41,7 +49,7 @@ export component MainWindow inherits Window {
             VerticalBox {
                 spacing: 8px;
                 Button {
-                    text: "Rimshot 1";
+                    text: rimshot1_playing ? "◼ Rimshot 1" : "▶ Rimshot 1";
                     clicked => { root.toggle_rimshot1(); }
                 }
                 Button {
