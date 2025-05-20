@@ -8,6 +8,7 @@ export component MainWindow inherits Window {
     in-out property<bool> opening_procession_playing;
     in-out property<bool> open_great_lights_playing;
     in-out property<bool> national_anthem_playing;
+    in-out property<bool> mystic_chain_playing;
     in-out property<bool> rimshot1_playing;
     in-out property<bool> rimshot2_playing;
     in-out property<bool> rimshot3_playing;
@@ -17,6 +18,7 @@ export component MainWindow inherits Window {
     callback toggle_opening_procession();
     callback toggle_open_great_lights();
     callback toggle_national_anthem();
+    callback toggle_mystic_chain();
     callback toggle_rimshot1();
     callback toggle_rimshot2();
     callback toggle_rimshot3();
@@ -41,6 +43,10 @@ export component MainWindow inherits Window {
                 Button {
                     text: national_anthem_playing ? "◼ 🇸🇰 National Anthem" : "▶ 🇸🇰 National Anthem";
                     clicked => { root.toggle_national_anthem(); }
+                }
+                Button {
+                    text: mystic_chain_playing ? "◼ Mystic Chain" : "▶ Mystic Chain";
+                    clicked => { root.toggle_mystic_chain(); }
                 }
             }
         }

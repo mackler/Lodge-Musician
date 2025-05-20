@@ -1,9 +1,10 @@
 pub const OPENING_PROCESSION: &str = "opening-procession.wav";
 pub const OPEN_GREAT_LIGHTS: &str = "open-great-lights.wav";
 pub const NATIONAL_ANTHEM: &str = "slovak-national-anthem.wav";
+pub const MYSTIC_CHAIN: &str = "mystic-chain.wav";
 pub const TRACK2: &str = "audio2.mp3";
 pub const TRACK3: &str = "audio3.mp3";
-pub const RIMSHOT1: &str = "more-outro.wav";
+pub const RIMSHOT1: &str = "gliss-growl.wav";
 pub const RIMSHOT2: &str = "c-major-hit-fattened.wav";
-pub const RIMSHOT3: &str = "gliss-growl.wav";
-pub const RIMSHOT4: &str = "going-down.wav";
+pub const RIMSHOT3: &str = "going-down.wav";
+pub const RIMSHOT4: &str = "more-outro.wav";

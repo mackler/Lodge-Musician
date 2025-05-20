@@ -143,6 +143,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let opening_procession = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, OPENING_PROCESSION), stream_handle.clone())));
     let open_great_lights = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, OPEN_GREAT_LIGHTS), stream_handle.clone())));
     let national_anthem = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, NATIONAL_ANTHEM), stream_handle.clone())));
+    let mystic_chain = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, MYSTIC_CHAIN), stream_handle.clone())));
     let rimshot1 = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, RIMSHOT1), stream_handle.clone())));
     let rimshot2 = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, RIMSHOT2), stream_handle.clone())));
     let rimshot3 = Arc::new(Mutex::new(AudioToggle::new(build_path(dir_path, RIMSHOT3), stream_handle.clone())));
@@ -168,6 +169,7 @@ fn main() -> Result<(), slint::PlatformError> {
     connect_button!(opening_procession, MainWindow::set_opening_procession_playing, on_toggle_opening_procession);
     connect_button!(open_great_lights, MainWindow::set_open_great_lights_playing, on_toggle_open_great_lights);
     connect_button!(national_anthem, MainWindow::set_national_anthem_playing, on_toggle_national_anthem);
+    connect_button!(mystic_chain, MainWindow::set_mystic_chain_playing, on_toggle_mystic_chain);
     connect_button!(rimshot1, MainWindow::set_rimshot1_playing, on_toggle_rimshot1);
     connect_button!(rimshot2, MainWindow::set_rimshot2_playing, on_toggle_rimshot2);
     connect_button!(rimshot3, MainWindow::set_rimshot3_playing, on_toggle_rimshot3);
