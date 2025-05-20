@@ -6,8 +6,9 @@ export component MainWindow inherits Window {
 
     // Properties so user can see which track is playing
     in-out property<bool> opening_procession_playing;
-    in-out property<bool> open_great_lights_playing;
     in-out property<bool> national_anthem_playing;
+    in-out property<bool> open_tapis_playing;
+    in-out property<bool> open_great_lights_playing;
     in-out property<bool> mystic_chain_playing;
     in-out property<bool> rimshot1_playing;
     in-out property<bool> rimshot2_playing;
@@ -16,8 +17,9 @@ export component MainWindow inherits Window {
 
     // Callbacks for each button
     callback toggle_opening_procession();
-    callback toggle_open_great_lights();
     callback toggle_national_anthem();
+    callback toggle_open_tapis();
+    callback toggle_open_great_lights();
     callback toggle_mystic_chain();
     callback toggle_rimshot1();
     callback toggle_rimshot2();
@@ -37,12 +39,16 @@ export component MainWindow inherits Window {
                     clicked => { root.toggle_opening_procession(); }
                 }
                 Button {
-                    text: open_great_lights_playing ? "◼ Open Great Lights" : "▶ Open Great Lights";
-                    clicked => { root.toggle_open_great_lights(); }
-                }
-                Button {
                     text: national_anthem_playing ? "◼ 🇸🇰 National Anthem" : "▶ 🇸🇰 National Anthem";
                     clicked => { root.toggle_national_anthem(); }
+                }
+                Button {
+                    text: open_tapis_playing ? "◼ Open Tapis" : "▶ Open Tapis";
+                    clicked => { root.toggle_open_tapis(); }
+                }
+                Button {
+                    text: open_great_lights_playing ? "◼ Open Great Lights" : "▶ Open Great Lights";
+                    clicked => { root.toggle_open_great_lights(); }
                 }
                 Button {
                     text: mystic_chain_playing ? "◼ Mystic Chain" : "▶ Mystic Chain";
